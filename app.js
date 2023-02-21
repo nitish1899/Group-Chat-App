@@ -20,7 +20,7 @@ const signupRoutes = require('./routes/user');
 
 app.put('/data',(req,res) => {
     res.status(201).json({ name:"nitish", email: "nkword1899@gmail.com"});
-});
+})
 
 app.use('/user',signupRoutes);
 
