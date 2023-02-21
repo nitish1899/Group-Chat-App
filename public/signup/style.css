@@ -1,0 +1,50 @@
+body{
+    background-color: rgb(239, 248, 248);
+    color:#555555;
+
+    font: normal 16px Arial, Helvetica,sans-serif;
+
+    /* line-height: 1.6em; */
+}
+
+.button{
+    background-color: #bab7b7;
+    color: #fff;
+    padding: 10px 15px;
+    border:none;
+}
+
+.container{
+    width:80%;
+    margin:auto;
+}
+
+a{
+    text-decoration: none;
+    color: #ff0202;
+}
+
+a:hover{
+    color: rgb(143, 58, 217);
+}
+
+a:active{
+    color: green;
+}
+
+.my-form{
+    padding: 20px;
+}
+
+.my-form .form-group{
+    padding-bottom: 15px;
+}
+
+.my-form lebel{
+     display: block; /*This will shift input on next line */
+}
+
+.my-form input{
+    padding: 8px;
+    width:50%;
+}
