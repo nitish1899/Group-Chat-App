@@ -1,18 +1,20 @@
 async function login(event) {
     try{
         event.preventDefault();
-        loginCredentials = {
-            Email: event.target.email.value,
-            Password: event.target.password.value
+        loginDetails = {
+            email: event.target.email.value,
+            password: event.target.password.value
         }
-    
+        
         document.getElementById('email').value = "";
         document.getElementById('password').value = "";
     
-        const response =await axios.post('http://localhost:3000/user/login',loginCredentials,{Credentials: "include"});
+        // const response = await axios.post('http://localhost:3000/user/login',loginCredentials,{Credentials:"include"});
+        const response = await axios.post('http://localhost:3000/user/login', loginDetails,{Credentials: "include"});
         if(response.status === 201){
             alert(response.data.message);
-                console.log(response.data);
+            console.log(response.data.message);
+            localStorage.setItem('token', response.data.token);
         } else {
             throw new Error(" Failed to Login");
         }

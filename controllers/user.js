@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const User = require('../models/user');
 require("dotenv").config();
@@ -10,6 +11,10 @@ function isStringInvalid(string){
         return false;
     }
 }
+
+function generateAccessToken(id, email) {
+    return jwt.sign({ userId : id , email: email}, process.env.TOKEN_SECRET);
+  }
 
 exports.postSignUp = async (req,res) => {
     try{
@@ -45,4 +50,32 @@ exports.postSignUp = async (req,res) => {
         console.log(err);
         res.status(500).json({error:err});
   }
+}
+
+exports.postLogin = async (req,res) => {
+    try{   
+        const {email,password} = req.body;
+        console.log(email, password)
+        if(isStringInvalid(email) || isStringInvalid(password)){
+            return res.status(400).json({ message: 'Bad parameters. Something is missing', success: false});
+        }
+        const user = await User.findAll({where: {email: email }});
+       // console.log(user)
+        if(user.length >0){
+            bcrypt.compare(password,user[0].password,(err,result) =>{
+                if(err){
+                    return res.status(500).json({ message : 'Something went wrong', success:false})
+                } else if(result == true){
+                    return res.status(201).json({ message: 'Login Successful', success: true, token : generateAccessToken(user[0].id, user[0].email)});
+                } else {
+                    return res.status(401).json({ message : 'Password is incorrect',  success: false});
+                }
+            })
+        } else {
+            return res.status(404).json({message : 'User does not exist', success: false});
+        }
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({error:err});
+  }  
 }
