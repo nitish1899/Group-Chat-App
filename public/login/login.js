@@ -15,6 +15,8 @@ async function login(event) {
             alert(response.data.message);
             console.log(response.data.message);
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('userName', response.data.name);
+            window.location.href = '../chat/chat.html';
         } else {
             throw new Error(" Failed to Login");
         }

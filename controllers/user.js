@@ -12,8 +12,8 @@ function isStringInvalid(string){
     }
 }
 
-function generateAccessToken(id, email) {
-    return jwt.sign({ userId : id , email: email}, process.env.TOKEN_SECRET);
+function generateAccessToken(id, email, name) {
+    return jwt.sign({ userId : id , email: email, name: name}, process.env.TOKEN_SECRET);
   }
 
 exports.postSignUp = async (req,res) => {
@@ -66,7 +66,7 @@ exports.postLogin = async (req,res) => {
                 if(err){
                     return res.status(500).json({ message : 'Something went wrong', success:false})
                 } else if(result == true){
-                    return res.status(201).json({ message: 'Login Successful', success: true, token : generateAccessToken(user[0].id, user[0].email)});
+                    return res.status(201).json({ message: 'Login Successful', success: true, name: user[0].name, token : generateAccessToken(user[0].id, user[0].email, user[0].name)});
                 } else {
                     return res.status(401).json({ message : 'Password is incorrect',  success: false});
                 }
