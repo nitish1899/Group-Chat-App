@@ -1,6 +1,7 @@
 const Chats =  require('../models/chat');
-//const uuid = require('uuid');
 const User = require('../models/user');
+const {Op} = require('sequelize');
+
 function isStringValid(string){
    if(string == undefined || string.length === 0 ){
       return true;
@@ -14,9 +15,9 @@ const postMessage = async (req,res) => {
       if(isStringValid(message)) {
          return res.status(404).json('Message is not found');
       } else {
-         //const id = uuid.v4();
          const data = await Chats.create({ message, userId:req.user.id, name:req.user.name});
-         return res.status(201).json({message: data, success: true});
+         const Message= {message: data.message, id: data.id, name: data.name};
+         return res.status(201).json({Message, success: true});
       }
    } catch(err) {
       console.log(err);
@@ -26,11 +27,13 @@ const postMessage = async (req,res) => {
 
 
 const getMessage = async (req,res) => {
-   try{
-         const allChats = await Chats.findAll({
-            attributes: ['message', 'userId', 'name']
+   try{ const {lastmsgId} = req.query ;
+         const lastmsg = await Chats.findAll({
+            where: { id : { [Op.gt] : lastmsgId } },
+            attributes: ['id', 'message', 'name']
          })
-         return res.status(201).json({allChats: allChats , success: true});
+         console.log("last message is : ",lastmsg);
+         return res.status(201).json({lastmsg , success: true});
       } catch(err) {
       console.log(err);
       return res.status(500).json({message: err, success: false});
