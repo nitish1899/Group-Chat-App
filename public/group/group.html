@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <title>Group Page</title>
+    <link rel="icon" href="../img/favicon.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div class="user-group">
+        <div class="logout-div">
+            <button class="fa fa-sign-out btn btn-danger rounded-5" id="logout" type="button" onclick="logout()">Logout</button>
+        </div>
+        <form id="form" onsubmit="createGroup(event)">
+            <h2>Create A New Group</h2>
+            <p class="hint-text">Now it's time to create your own group.</p>
+            <div class="form-group">
+                <input type="text" class="form-control" name="groupName" placeholder="Type your group name" required>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-inline"><input type="checkbox" required> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg btn-block group">Create Group</button>
+            </div>
+        </form>
+        
+        <main class="msg-chat centered-form__box" id="groups">
+            <div class="display" style="text-align: center;">MY GROUPS</div><hr>
+        </main>
+
+        <main class="msg-chat centered-form__box" id="otherGroups">
+            <div class="display" style="text-align: center;">OTHER GROUPS</div><hr>
+        </main>
+        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+    <script src="./group.js"></script>
+</body>
+
+</html>

@@ -14,7 +14,10 @@ const User = sequelize.define('user', {
         unique : true
       },
     password: Sequelize.STRING,
-    phNo: Sequelize.STRING
+    phNo: {
+      type: Sequelize.STRING,
+      unique : true
+    }
 })
 
 module.exports = User;
