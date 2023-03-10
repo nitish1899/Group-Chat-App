@@ -47,20 +47,35 @@ const getGroups= async (req, res) => {
     }
 }
 
-const deleteGroup = async (req, res, next) => {
+// const deleteGroup = async (req, res, next) => {
+//     try{
+//         const {id} = req.params; // This is group id.
+//        // console.log(req.params, req.user.id);
+//         const memberIsAdmin = await UserGroup.findOne({where : {groupId: id, userId : req.user.id , isAdmin: true}});
+//         if(!memberIsAdmin){
+//             return res.status(404).json({success : false ,message : `Only Admin can delete group !`});
+//         } else{
+//             const group = await Group.destroy({where : { id : id}});
+//             return res.status(200).json({success : true ,message : `Group has beeen deleted sucessfully`});
+//         }
+//     }catch(err){
+//         console.log(err);
+//         return res.status(500).json({success: false, message : `Something went wrong !`});
+//     }
+// }
+
+
+const exitGroup = async (req, res, next) => {
     try{
         const {id} = req.params; // This is group id.
        // console.log(req.params, req.user.id);
-        const memberIsAdmin = await UserGroup.findOne({where : {groupId: id, userId : req.user.id , isAdmin: true}});
-        if(!memberIsAdmin){
-            return res.status(404).json({success : false ,message : `Only Admin can delete group !`});
-        } else{
-            const group = await Group.destroy({where : { id : id}});
-            return res.status(200).json({success : true ,message : `Group has beeen deleted sucessfully`});
+        const response = await UserGroup.destroy({where : {groupId: id, userId : req.user.id}});
+        if(response){
+            return res.status(200).json({success : true ,message : `${req.user.name} has left the group`});
         }
     }catch(err){
         console.log(err);
-        return res.status(500).json({success: false, message : `Something went wrong !`});
+        return res.status(500).json({success: false, message : `Failed to exit the group !`});
     }
 }
 
@@ -101,7 +116,7 @@ const getAllGroups = async (req, res) => {
 module.exports = {
     createGroup,
     getGroups, 
-    deleteGroup, 
+    exitGroup, 
     joinGroup, 
     getAllGroups
 };

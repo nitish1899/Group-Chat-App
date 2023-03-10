@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const User = require('../models/user');
+const {Op} = require('sequelize');
+
 require("dotenv").config();
 
 function isStringInvalid(string){
@@ -34,10 +36,10 @@ exports.postSignUp = async (req,res) => {
                     throw new Error(err);
                 }
 
-                const user = await User.findAll({where: {email: email }}); 
+                const user = await User.findAll({ where: { [Op.or]: [{email: email},{phNo:phNo}] } } ); 
                 //console.log(user);
                 if(user.length > 0){
-                    res.status(201).json({message : 'User already exist'});
+                    res.status(400).json({message : 'User already exist with either same email or phonenumber'});
                 } else{
                         //console.log(req.body);
                         const data = await User.create({name:name, email:email, password:hash, phNo:phNo });
@@ -66,7 +68,7 @@ exports.postLogin = async (req,res) => {
                 if(err){
                     return res.status(500).json({ message : 'Something went wrong', success:false})
                 } else if(result == true){
-                    return res.status(201).json({ message: 'Login Successful', success: true, name: user[0].name, token : generateAccessToken(user[0].id, user[0].email, user[0].name)});
+                    return res.status(201).json({ message: 'Login Successful', success: true, name: user[0].name, email:user[0].email, token : generateAccessToken(user[0].id, user[0].email, user[0].name)});
                 } else {
                     return res.status(401).json({ message : 'Password is incorrect',  success: false});
                 }

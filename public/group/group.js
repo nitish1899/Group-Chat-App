@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', async() => {
         groupsId.push(ele.id);
         groups.innerHTML += `
         <div  class="group-name" id="${ele.id}">${ele.name}
-            <button class="delete"">delete</button>
+            <button class="exit-group">Exit Group</button>
         </div>
         `
     });
@@ -49,7 +49,7 @@ async function createGroup(event){
         console.log('response is : ',response) 
         groups.innerHTML += `
         <div  class="group-name" id="${response.data.id}">${response.data.name}
-            <button class="delete">Delete</button>
+            <button class="exit-group">Exit Group</button>
         </div>
         `
         alert('Group has created successfully !');
@@ -68,18 +68,19 @@ groups.addEventListener('click' , async (e) => {
     if(e.target.classList.contains('group-name')){
        // console.log(e.target.innerText);
         const id = e.target.id;
-        const name = e.target.innerText.split("\n")[0];
+        const name = e.target.innerText.split(" ")[0];
         
         localStorage.setItem('groupId', id);
         localStorage.setItem('groupName', name);
-        return window.location.href = '../chat/chat.html';
+        return window.location.href = '../messages/index.html';
     }
 
-    if(e.target.classList.contains('delete')){
+    if(e.target.classList.contains('exit-group')){
         if(confirm(`Are you sure ?`)){
             try{
+                const name = e.target.parentNode.innerText.split(' ')[0];
                 const id = e.target.parentNode.id;
-                const response = await axios.get(`http://localhost:3000/group/delete/${id}`, { headers : {'Authorization' : token} });
+                const response = await axios.get(`http://localhost:3000/group/exitGroup/${id}`, { headers : {'Authorization' : token} });
                  //console.log('Response after deleting group',response.data);
             //     const message = response.data.message;
             //     if(response.status === 200){
@@ -96,6 +97,12 @@ groups.addEventListener('click' , async (e) => {
             if(response.status === 200){
                 e.target.parentNode.remove();
                 alert(response.data.message);
+
+                otherGroups.innerHTML += `
+                    <div  class="other-group-name" id="${id}">${name}
+                        <button class="join">JOIN</button>
+                    </div>
+                    `
             }    
     
         }catch(err){
@@ -121,7 +128,7 @@ otherGroups.addEventListener('click' , async (e) => {
 
         groups.innerHTML += `
         <div  class="group-name" id="${id}">${name}
-            <button class="delete">Delete</button>
+            <button class="exit-group">Exit Group</button>
         </div>
         `
         if(groups.style.display == "none"){

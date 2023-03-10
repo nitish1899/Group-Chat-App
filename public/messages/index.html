@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="back-container">
+        <div class="container-fluid front-container">
+            <div class="back-top"></div>
+            <div class="back-main"></div>
+        </div>
+        <div class="container front-container1">
+            <div class="row chat-top" id="row1">
+                <div class="col-sm-4 head" id="row1col1">
+                   <img src="../img/profilePic.png" alt="" class="profile-image rounded-circle">
+                   <span class="mx-3" id="username">Nitish</span>
+                   <span class="float-end" style="display: flex;">
+                        <div class="menu-bar" >
+                            <ul>
+                                <button style="border: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                    </svg>
+                                </button> 
+                                <div class="sub-menu-1">
+                                    <ul id="features">
+                                        <li><a href="#" class="NewGroup">NewGroup</a></li>
+                                        <li><a href="#" class="Archived">Archived</a></li>
+                                        <li><a href="#" class="Starred">Starred</a></li>
+                                        <li><a href="#" class="Setting">Setting</a></li>
+                                        <li><a href="#" class="LogOut">LogOut</a></li>
+                                    </ul>
+                                </div>
+                            </ul>
+                        </div>
+
+                   </span>
+                </div>
+                <div class="col-sm-8" id="row1col2">
+                    <img src="../img/profilePic.png" alt="" class="profile-image rounded-circle">
+                    <!-- <button class="groupName" style="border: none;" onClick="showOrHide()"><span class="mx-3" id="groupname">Saloni</span></button> -->
+                    <span class="mx-3" id="groupname">Saloni</span>
+                    <span class="float-end">
+                        <button style="border: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search mx-2" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                        <button style="border: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                            </svg>
+                        </button>  
+                    </span>
+                </div>
+            </div>
+            <div class="row chat-bottom" id="row2">
+                <div class="col-sm-4 contacts" id="row2col1">
+                    <div class="row p-2 addUser">
+                        <form style="display: flex;" onsubmit="AddNewUser(event)">
+                            <input type="email" class="form-control float-end" name="email" id="email" placeholder="Search or start new chat">
+                            <button style="border: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search mx-2" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg> 
+                            </button>    
+                        </form>
+                    </div>
+                    <div class="contact-table-scroll">
+                        
+                            <div class="burger-button">
+                                <span class="burger-top"></span>
+                                <span class="burger-middle"></span>
+                                <span class="burger-bottom"></span>
+                            </div>
+                            <div class="burger-menu">
+                               <ul id="group">
+                                <!-- <li class="names"><u>User</u><span style="float:right;"><u>Admin Status</u></span></li> -->
+                               </ul>
+                            </div>
+                       
+                  
+                        <!-- <ul id="group"></ul> -->
+                    </div>
+                </div>
+                <div class="col-sm-8 message-area" id="row2col2">
+                    <!-- <div class="groupDetails" style="display: none; background-color: rgb(49, 48, 48);"></div> -->
+                    <div class="message-table-scroll">
+                        <ul id="chat">
+                            <li class="you">
+                                <div class="entete">
+                                    <span class="status green"></span>
+                                    <h2>Nitish</h2>
+                                </div>
+                                <div class="triangle"></div>
+                                <div class="message">
+                                    Hello everyone
+                                    <br><div class="float-end"> </small><small><small><small>11:45 am</small></small></small></div>
+                                </div>
+                            </li>
+                            <li class="me">
+                                <div class="entete">
+                                    <h2>Saloni</h2>
+                                    <span class="status blue"></span>
+                                </div>
+                                <div class="triangle"></div>
+                                <div class="message">
+                                   Hi Nitish. How are you?
+                                    <br><div class="float-end"> </small><small><small><small>11:45 am</small></small></small></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row input-box" style="padding-bottom: 0; margin-bottom: 0;">
+                       <div class="col-sm-12">
+                           <form style="display: flex;" onsubmit="sendMessage(event)">
+                                <input type="file" name="file" id="sendFile">
+                                <input type="text" class="form-control" name="message" id="Message" placeholder="Type a message">
+                                <button style="border: none;" type="submit">
+                                    <img src="../img/sendButton.png"  alt="" class="profile-image ">
+                                </button>
+                           </form>
+                       </div>
+                    </div>
+                </div>
+                <div class="container" id="userlist"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>

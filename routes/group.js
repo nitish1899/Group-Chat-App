@@ -8,7 +8,7 @@ router.use('/createGroup', authentication.authenticate, groupController.createGr
 
 router.get('/getGroup' , authentication.authenticate, groupController.getGroups)
 
-router.get('/delete/:id' , authentication.authenticate, groupController.deleteGroup);
+router.get('/exitGroup/:id' , authentication.authenticate, groupController.exitGroup);
 
 router.post('/getAllGroups' , groupController.getAllGroups);
 
