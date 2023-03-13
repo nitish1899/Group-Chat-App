@@ -7,9 +7,6 @@ let username = localStorage.getItem('userName');
 const backendAPIs = 'http://localhost:3000/message';
 
 const chat = document.getElementById('chat');
-//const groupList = document.getElementById('contacts');
-// const userName = document.getElementById('username');
-// const groupname = document.getElementById('groupname');
 
 let flag = true;
 
@@ -22,6 +19,7 @@ let flag = true;
 window.addEventListener('DOMContentLoaded', dom());
 
 async function dom(){
+  //console.log("typecheck",typeof('kite'));  
   document.getElementById('groupname').innerText = groupName;
   document.getElementById('username').innerText = username;
 
@@ -55,7 +53,6 @@ async function dom(){
       chatArray = chatArray.concat(backendArray);
   }
   
-
   if (chatArray.length > 20) {
       chatArray = chatArray.slice(chatArray.length - 20);
   }
@@ -216,17 +213,7 @@ function date(string) {
     return date_object.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 }  
 
-//burger button functionallity
 const allName = document.getElementById('group');
-
-const burgerButton = document.querySelector(".burger-button");
-const burgerMenu = document.querySelector(".burger-menu");
-
-burgerButton.addEventListener("click", function() {
-    burgerButton.classList.toggle("active");
-    burgerMenu.classList.toggle("active");
-    openBox();
-});
 
 
 //getting all users and admin details.
@@ -356,17 +343,55 @@ menu.addEventListener('click' , async (e) => {
         window.location.href="../group/group.html";
     }
 
-})
+}) 
 
-// const divContainer = document.querySelector('.groupDetails');
-// let isClicked = true;
-// async function showOrHide(){
-//     if(isClicked){
-//         divContainer.style.display = 'block';
-//         isClicked = false;
-//     } else {
-//         divContainer.style.display = 'none';
-//         isClicked = true;
-//     }
+const div = document.getElementById('xyz');
+        let isClicked= true;
+        function showOrHide(){
+           if(isClicked){
+            div.style.display='block';
+            isClicked = false;
+            openBox();
+           } else {
+            div.style.display='none';
+            isClicked = true;
+           }
+        }
 
-// } 
+function chooseFile(){
+    document.getElementById('sendFile').click();
+    // Here we are getting the element and clicking it using javascript . So we need not do it manually.
+}    
+async function sendFile(event){
+    // Once we selected a file , now we are converting it into base64 
+    var file = event.files[0];
+
+    if(!file){
+        alert('Please select your file');
+    } else {
+        var reader = new FileReader();
+
+        reader.addEventListener("load", async function (){
+            alert(reader.result);
+            try {
+                const message = reader.result;
+                const response = await axios.post(`${backendAPIs}/sendMessage/${groupId}`, { message: message }, { headers: { 'Authorization': token } });
+                console.log(typeof(response.data.data.message));
+                if(response.data.data.message.indexOf("base64") !== -1) {
+                    var file = `<img src='${response.data.data.message}' class="img-fluid" />`;
+                    showMyMessageOnScreen(file);
+                    alert('file recieved',file);
+                }
+            } catch (err) {
+                console.log(err);
+                if (err.response.status == 400) {
+                    err.target.message.value = null;
+                    return alert(err.response.data.message);
+                }
+                return document.body.innerHTML += `<div class="error">Something went wrong !</div>`;
+            }
+        },false);
+
+        reader.readAsDataURL(file); // When this function execute , it will triger an event called load.
+    }
+}

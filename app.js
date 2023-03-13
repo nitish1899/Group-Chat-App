@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-require("dotenv").config();
+require("dotenv").config(); // At first, we need to require dotenv and then we will require sequelize because we are using dotenv in database.js
 const sequalize = require('./util/database');
 const errorController = require('./controllers/error');
 
@@ -11,7 +11,7 @@ app.use(cors({
     credentials: true
 }));
 
-//app.use(express.static('public'));
+app.use(express.static('public'));
 app.use(bodyParser.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -19,10 +19,6 @@ const signupRoutes = require('./routes/user');
 const forgotPasswordRoutes = require('./routes/forgotPassword');
 const chatRoutes = require('./routes/chat');
 const groupRoutes = require('./routes/group');
-
-// app.put('/data',(req,res) => {
-//     res.status(201).json({ name:"nitish", email: "nkword1899@gmail.com"});
-// })
 
 const User = require('./models/user');
 const ForgotPassword = require('./models/forgotPassword');

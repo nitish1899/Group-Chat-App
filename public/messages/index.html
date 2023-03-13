@@ -40,13 +40,11 @@
                                 </div>
                             </ul>
                         </div>
-
                    </span>
                 </div>
                 <div class="col-sm-8" id="row1col2">
                     <img src="../img/profilePic.png" alt="" class="profile-image rounded-circle">
-                    <!-- <button class="groupName" style="border: none;" onClick="showOrHide()"><span class="mx-3" id="groupname">Saloni</span></button> -->
-                    <span class="mx-3" id="groupname">Saloni</span>
+                    <button class="groupName" style="border: none;" onClick="showOrHide()" id="groupname">GroupName</button>
                     <span class="float-end">
                         <button style="border: none;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search mx-2" viewBox="0 0 16 16">
@@ -73,25 +71,11 @@
                             </button>    
                         </form>
                     </div>
-                    <div class="contact-table-scroll">
-                        
-                            <div class="burger-button">
-                                <span class="burger-top"></span>
-                                <span class="burger-middle"></span>
-                                <span class="burger-bottom"></span>
-                            </div>
-                            <div class="burger-menu">
-                               <ul id="group">
-                                <!-- <li class="names"><u>User</u><span style="float:right;"><u>Admin Status</u></span></li> -->
-                               </ul>
-                            </div>
-                       
-                  
-                        <!-- <ul id="group"></ul> -->
+                    <div class="toggle" id="xyz">
+                        <ul id="group"></ul>
                     </div>
                 </div>
                 <div class="col-sm-8 message-area" id="row2col2">
-                    <!-- <div class="groupDetails" style="display: none; background-color: rgb(49, 48, 48);"></div> -->
                     <div class="message-table-scroll">
                         <ul id="chat">
                             <li class="you">
@@ -120,8 +104,11 @@
                     </div>
                     <div class="row input-box" style="padding-bottom: 0; margin-bottom: 0;">
                        <div class="col-sm-12">
+                        <button style="border: none;" type="click" onclick="chooseFile()">
+                            <img src="../img/chooseFile.png"  alt="" class="profile-image ">
+                        </button>
+                        <input type="file" name="file" id="sendFile" style="display: none;" onchange="sendFile(this)" >
                            <form style="display: flex;" onsubmit="sendMessage(event)">
-                                <input type="file" name="file" id="sendFile">
                                 <input type="text" class="form-control" name="message" id="Message" placeholder="Type a message">
                                 <button style="border: none;" type="submit">
                                     <img src="../img/sendButton.png"  alt="" class="profile-image ">
