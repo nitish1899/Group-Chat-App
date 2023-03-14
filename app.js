@@ -3,11 +3,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require("dotenv").config(); // At first, we need to require dotenv and then we will require sequelize because we are using dotenv in database.js
 const sequalize = require('./util/database');
+const path = require('path');
 const errorController = require('./controllers/error');
 
 const app = express();
 app.use(cors({
-    origin:" http://127.0.0.1:5555",
+    origin:"*",
     credentials: true
 }));
 
@@ -42,6 +43,11 @@ app.use('/user',signupRoutes);
 app.use('/password',forgotPasswordRoutes);
 app.use('/message', chatRoutes);
 app.use('/group',groupRoutes);
+
+app.use((req,res) => {
+    console.log('Requested URL: ',req.url);
+    res.sendFile(path.join(__dirname, `public/${req.url}`));
+})
 
 app.use(errorController.get404);
 
