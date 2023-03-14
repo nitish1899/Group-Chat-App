@@ -14,8 +14,7 @@ async function signup(event){
         document.getElementById('password').value="";
         document.getElementById('phNo').value="";
         
-       // const response = await axios.put('http://localhost:3000/data',userDetails,{Credentials: "include"});
-        const response = await axios.post('http://localhost:3000/user/signup',userDetails,{Credentials: "include"});
+        const response = await axios.post('http://13.127.223.190:3000/user/signup',userDetails,{Credentials: "include"});
         if(response.status === 201){
             alert(response.data.message);
             console.log(response.data);
