@@ -366,7 +366,6 @@ const sendFile = async (req, res, next) => {
             groupId: groupId
         })
         const data = { message: result.message, createdAt: result.createdAt };
-    
         res.status(200).json({ success: true, data });
     }catch(err){
         console.log(err);

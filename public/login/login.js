@@ -9,7 +9,7 @@ async function login(event) {
         document.getElementById('email').value = "";
         document.getElementById('password').value = "";
     
-        const response = await axios.post('http://localhost:3000/user/login', loginDetails,{Credentials: "include"});
+        const response = await axios.post('http://13.127.223.190:3000/user/login', loginDetails,{Credentials: "include"});
         if(response.status === 201){
             alert(response.data.message);
             console.log(response.data.message);

@@ -52,7 +52,6 @@ app.use((req,res) => {
 app.use(errorController.get404);
 
 // {force : true}
-
 sequalize.sync()
 .then(result =>{
     app.listen(process.env.PORT);

@@ -23,7 +23,6 @@ router.post('/removeAdmin/:groupId' , authentication.authenticate,  chatControll
 
 const multer = require('multer');
 const upload = multer();
-
 router.post('/sendFile/:groupId' , authentication.authenticate, upload.single('file'), chatController.sendFile);
 
 module.exports = router;
