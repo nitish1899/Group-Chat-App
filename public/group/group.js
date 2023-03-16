@@ -2,9 +2,11 @@ const token = localStorage.getItem('token');
 const groups = document.getElementById('groups');
 const otherGroups = document.getElementById('otherGroups');
 
+const backendAPIs = 'http://localhost:3000/group';
+
 //getting all groups on screen
 window.addEventListener('DOMContentLoaded', async() => {
-    const response = await axios.get(`http://13.127.223.190:3000/group/getGroup`, {headers : {'Authorization' : token} });
+    const response = await axios.get(`${backendAPIs}/getGroup`, {headers : {'Authorization' : token} });
     // console.log(response.data);
 
     if(!response.data.groups.length){
@@ -21,7 +23,7 @@ window.addEventListener('DOMContentLoaded', async() => {
         `
     });
 
-    const result = await axios.post(`http://13.127.223.190:3000/group/getAllGroups` , {groupsId : groupsId});
+    const result = await axios.post(`${backendAPIs}/getAllGroups` , {groupsId : groupsId});
     console.log(result.data.AllOtherGroups);
     if(!result.data.AllOtherGroups.length){
         return otherGroups.style.display = "none";
@@ -41,7 +43,7 @@ async function createGroup(event){
     event.preventDefault();
     const group_name = {groupName : event.target.groupName.value};
     event.target.groupName.value="";
-    const response = await axios.post('http://13.127.223.190:3000/group/createGroup',group_name,{headers : {'Authorization' : token}});
+    const response = await axios.post(`${backendAPIs}/createGroup`,group_name,{headers : {'Authorization' : token}});
     if(response.status === 201){
         if(groups.style.display == 'none'){
             groups.style.display = 'block';
@@ -80,7 +82,7 @@ groups.addEventListener('click' , async (e) => {
             try{
                 const name = e.target.parentNode.innerText.split(' ')[0];
                 const id = e.target.parentNode.id;
-                const response = await axios.get(`http://13.127.223.190:3000/group/exitGroup/${id}`, { headers : {'Authorization' : token} });
+                const response = await axios.get(`${backendAPIs}/exitGroup/${id}`, { headers : {'Authorization' : token} });
                  //console.log('Response after deleting group',response.data);
             //     const message = response.data.message;
             //     if(response.status === 200){
@@ -121,7 +123,7 @@ otherGroups.addEventListener('click' , async (e) => {
         const name = e.target.parentNode.innerText.split(' ')[0];
         //console.log('name',name);
         const id = e.target.parentNode.id;
-        const result = await axios.get(`http://13.127.223.190:3000/group/join/${id}` , { headers : {'Authorization' : token} });
+        const result = await axios.get(`${backendAPIs}/join/${id}` , { headers : {'Authorization' : token} });
         // console.log(result);
 
         e.target.parentNode.remove();

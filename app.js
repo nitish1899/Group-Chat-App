@@ -12,7 +12,9 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(express.static('public'));
+app.use(express.static('public')); // To serve static files
+// express.static is a middleware function in express. Here public specify the root directory from which to serve static assets.
+
 app.use(bodyParser.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -52,6 +54,7 @@ app.use((req,res) => {
 app.use(errorController.get404);
 
 // {force : true}
+
 sequalize.sync()
 .then(result =>{
     app.listen(process.env.PORT);

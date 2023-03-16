@@ -5,13 +5,15 @@ const user = document.getElementById('user');
 const child = `<li id=${userName}>${userName} joined</li>`
 user.innerHTML = user.innerHTML + child; 
 
+const backendAPIs = 'http://localhost:3000/message';
+
 async function sendMessage(event){
     event.preventDefault();
     const newMessageDetails = {
       message: event.target.message.value
     }
     document.getElementById('Message').value="";
-    const response = await axios.post('http://13.127.223.190:3000/message/sendMessage', newMessageDetails, { headers: {"Authorization" : token}});
+    const response = await axios.post(`${backendAPIs}/sendMessage`, newMessageDetails, { headers: {"Authorization" : token}});
     showMessages();
 }
 
@@ -31,7 +33,8 @@ async function showMessages(){
       console.log('false');
     }
    // console.log('oldMessages : ',oldMessage);
-    const response = await axios.get(`http://13.127.223.190:3000/message/getLastMessage?lastmsgId=${lastmsgId}`, { headers: {"Authorization" : token}});
+
+    const response = await axios.get(`${backendAPIs}/getLastMessage?lastmsgId=${lastmsgId}`, { headers: {"Authorization" : token}});
     if(response.status === 201){
      // console.log("current response",response.data.lastmsg);
       let newMessage = response.data.lastmsg;

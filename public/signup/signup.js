@@ -1,3 +1,5 @@
+const backendAPIs = 'http://localhost:3000/user';
+
 async function signup(event){
     try{
         event.preventDefault();
@@ -14,7 +16,7 @@ async function signup(event){
         document.getElementById('password').value="";
         document.getElementById('phNo').value="";
         
-        const response = await axios.post('http://13.127.223.190:3000/user/signup',userDetails,{Credentials: "include"});
+        const response = await axios.post(`${backendAPIs}/signup`,userDetails,{Credentials: "include"});
         if(response.status === 201){
             alert(response.data.message);
             console.log(response.data);

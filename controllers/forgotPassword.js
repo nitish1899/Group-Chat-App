@@ -3,6 +3,7 @@ const ForgotPassword = require('../models/forgotPassword');
 const uuid = require('uuid');
 const sgMail =  require('@sendgrid/mail');
 const bcrypt = require('bcrypt');
+const backendAPIs = 'http://localhost:3000/password'
 
 const forgotPassword = async (req,res) => {
   try{
@@ -22,11 +23,11 @@ const forgotPassword = async (req,res) => {
             from: 'nkword1899@gmail.com',
             subject: 'Reset password ',
             text: 'Click on given link and enter your new password',
-            html: `<a href="http://13.127.223.190:3000/password/resetPassword/${id}">Reset password</a>`,
+            html: `<a href="${backendAPIs}/resetPassword/${id}">Reset password</a>`,
         }
         const response = await sgMail.send(msg)
         try{
-        return res.status(201).send(`<a href="http://13.127.223.190:3000/password/resetPassword/${id}">Reset password</a>`);
+        return res.status(201).send(`<a href="${backendAPIs}/resetPassword/${id}">Reset password</a>`);
         }
         catch(err){
             throw new Error(err);

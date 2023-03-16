@@ -4,7 +4,7 @@ const groupName = localStorage.getItem('groupName');
 let userEmail = localStorage.getItem('email');
 let username = localStorage.getItem('userName');
 
-const backendAPIs = 'http://13.127.223.190:3000/message';
+const backendAPIs = 'http://localhost:3000/message';
 
 const chat = document.getElementById('chat');
 
@@ -31,9 +31,7 @@ async function dom(){
       lastMessageId = message[message.length - 1].id;
   }
 
-
     const response = await axios.get(`${backendAPIs}/getMessage/${groupId}?lastMessageId=${lastMessageId}`,{ headers: { 'Authorization': token } });
-  
   
    //console.log(response.data);
   const backendArray = response.data.arrayOfMessages;
@@ -376,5 +374,6 @@ async function uploadFile(){
         if(err.response.status == 400){
             return alert(err.response.data.message);
         }
-    }  
+    }
+    
 }
