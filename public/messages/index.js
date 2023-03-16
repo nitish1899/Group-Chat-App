@@ -4,7 +4,7 @@ const groupName = localStorage.getItem('groupName');
 let userEmail = localStorage.getItem('email');
 let username = localStorage.getItem('userName');
 
-const backendAPIs = 'http://localhost:3000/message';
+const backendAPIs = 'http://13.127.223.190:3000/message';
 
 const chat = document.getElementById('chat');
 
