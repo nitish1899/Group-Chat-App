@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
-const User = require('../models/user');
+const User = require('../Group-Chat-App/models/user');
 const {Op} = require('sequelize');
 
 require("dotenv").config();
