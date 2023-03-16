@@ -104,10 +104,10 @@
                     </div>
                     <div class="row input-box" style="padding-bottom: 0; margin-bottom: 0;">
                        <div class="col-sm-12">
-                        <button style="border: none;" type="click" onclick="chooseFile()">
-                            <img src="../img/chooseFile.png"  alt="" class="profile-image ">
-                        </button>
-                        <input type="file" name="file" id="sendFile" style="display: none;" onchange="sendFile(this)" >
+                        <form id="uploadFile">
+                            <input type="file" name="file" id="sendFile">
+                            <button type="button" style="border: none;"  onclick="uploadFile()"><img src="../img/sendButton.png"  alt="" class="profile-image "></button>
+                          </form>
                            <form style="display: flex;" onsubmit="sendMessage(event)">
                                 <input type="text" class="form-control" name="message" id="Message" placeholder="Type a message">
                                 <button style="border: none;" type="submit">

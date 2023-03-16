@@ -316,6 +316,64 @@ const removeAdmin = async (req, res, next) => {
 
 }
 
+const AWS = require('aws-sdk');
+
+updloadToS3 = (file, filename) => {
+    let s3Bucket = new AWS.S3({
+        accessKeyId: process.env.IAM_USER_KEY,
+        secretAccessKey: process.env.IAM_USER_SECRET,
+    })
+    var params = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: filename,
+        Body: file,
+        ACL: 'public-read'
+    }
+    return new Promise((resolve, reject) => {
+        s3Bucket.upload(params, (err, s3responce) => {
+            if (err) {
+                console.log(`Something went wrong`, err);
+                reject(err);
+            } else {
+                console.log(`work has done ===>`, s3responce);
+                resolve(s3responce.Location);
+            }
+        })
+    })
+}
+
+const sendFile = async (req, res, next) => {
+    try{
+        console.log(req.body);
+        console.log(req.params);
+        console.log(req.file);
+        const { groupId } = req.params;
+        if(!req.file){
+           return res.status(400).json({ success: false, message: `Please choose file !` });
+        }
+    
+        let type = (req.file.mimetype.split('/'))[1];
+        console.log('type', type)
+        const file = req.file.buffer;
+        const filename = `GroupChat/${new Date()}.${type}`;
+        console.log(`file ===>`, file );
+        console.log('filename ====>', filename);
+        const fileUrl = await updloadToS3(file,filename);
+        console.log('fileUrl =============>',fileUrl);
+    
+        let result = await req.user.createChat({
+            message: fileUrl,
+            groupId: groupId
+        })
+        const data = { message: result.message, createdAt: result.createdAt };
+    
+        res.status(200).json({ success: true, data });
+    }catch(err){
+        console.log(err);
+        res.status(400).json({ success: false, message: `Something went wrong !` });
+    }
+}
+
 module.exports = {
     sendMessage, 
     getMessage,
@@ -323,5 +381,6 @@ module.exports = {
     addUser,
     makeAdmin,
     deleteUser,
-    removeAdmin
+    removeAdmin,
+    sendFile
 }

@@ -4,7 +4,7 @@ const groupName = localStorage.getItem('groupName');
 let userEmail = localStorage.getItem('email');
 let username = localStorage.getItem('userName');
 
-const backendAPIs = 'http://13.127.223.190:3000/message';
+const backendAPIs = 'http://localhost:3000/message';
 
 const chat = document.getElementById('chat');
 
@@ -358,40 +358,24 @@ const div = document.getElementById('xyz');
            }
         }
 
-function chooseFile(){
-    document.getElementById('sendFile').click();
-    // Here we are getting the element and clicking it using javascript . So we need not do it manually.
-}    
-async function sendFile(event){
-    // Once we selected a file , now we are converting it into base64 
-    var file = event.files[0];
-
-    if(!file){
-        alert('Please select your file');
-    } else {
-        var reader = new FileReader();
-
-        reader.addEventListener("load", async function (){
-            alert(reader.result);
-            try {
-                const message = reader.result;
-                const response = await axios.post(`${backendAPIs}/sendMessage/${groupId}`, { message: message }, { headers: { 'Authorization': token } });
-                console.log(typeof(response.data.data.message));
-                if(response.data.data.message.indexOf("base64") !== -1) {
-                    var file = `<img src='${response.data.data.message}' class="img-fluid" />`;
-                    showMyMessageOnScreen(file);
-                    alert('file recieved',file);
-                }
-            } catch (err) {
-                console.log(err);
-                if (err.response.status == 400) {
-                    err.target.message.value = null;
-                    return alert(err.response.data.message);
-                }
-                return document.body.innerHTML += `<div class="error">Something went wrong !</div>`;
-            }
-        },false);
-
-        reader.readAsDataURL(file); // When this function execute , it will triger an event called load.
+async function uploadFile(){
+    try{
+        const upload = document.getElementById('uploadFile');
+        console.log('upload file',upload)
+        const formData = new FormData(upload);
+        // const file = document.getElementById('sendFile').files[0];
+        // formData.append('username', 'Nitish');
+        // formData.append('file' , file);
+        // console.log(formData);
+        const responce = await axios.post(`${backendAPIs}/sendFile/${groupId}` , formData , { headers: { 'Authorization': token, "Content-Type":"multipart/form-data" } });
+        console.log(responce.data);
+        document.getElementById('sendFile').value = null;
+        showMyMessageOnScreen(responce.data.data);
+    }catch(err){
+        console.log(err);
+        if(err.response.status == 400){
+            return alert(err.response.data.message);
+        }
     }
+    
 }

@@ -21,4 +21,9 @@ router.post('/deleteUser/:groupId' , authentication.authenticate,  chatControlle
 
 router.post('/removeAdmin/:groupId' , authentication.authenticate,  chatController.removeAdmin);
 
+const multer = require('multer');
+const upload = multer();
+
+router.post('/sendFile/:groupId' , authentication.authenticate, upload.single('file'), chatController.sendFile);
+
 module.exports = router;
