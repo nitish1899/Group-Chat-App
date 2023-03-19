@@ -4,7 +4,7 @@ const groupName = localStorage.getItem('groupName');
 let userEmail = localStorage.getItem('email');
 let username = localStorage.getItem('userName');
 
-const backendAPIs = 'http://13.127.223.190:3000/message';
+const backendAPIs = 'http://localhost:3000/message';
 
 const chat = document.getElementById('chat');
 
@@ -359,12 +359,11 @@ const div = document.getElementById('xyz');
 async function uploadFile(){
     try{
         const upload = document.getElementById('uploadFile');
-        console.log('upload file',upload)
+        //console.log('upload file',upload)
         const formData = new FormData(upload);
         // const file = document.getElementById('sendFile').files[0];
         // formData.append('username', 'Nitish');
-        // formData.append('file' , file);
-        // console.log(formData);
+         console.log('formData is : ',formData);
         const responce = await axios.post(`${backendAPIs}/sendFile/${groupId}` , formData , { headers: { 'Authorization': token, "Content-Type":"multipart/form-data" } });
         console.log(responce.data);
         document.getElementById('sendFile').value = null;

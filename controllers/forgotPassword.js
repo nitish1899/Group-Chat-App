@@ -3,7 +3,7 @@ const ForgotPassword = require('../models/forgotPassword');
 const uuid = require('uuid');
 const sgMail =  require('@sendgrid/mail');
 const bcrypt = require('bcrypt');
-const backendAPIs = 'http://13.127.223.190:3000/password'
+const backendAPIs = 'http://localhost:3000/password'
 
 const forgotPassword = async (req,res) => {
   try{

@@ -5,7 +5,7 @@ const user = document.getElementById('user');
 const child = `<li id=${userName}>${userName} joined</li>`
 user.innerHTML = user.innerHTML + child; 
 
-const backendAPIs = 'http://13.127.223.190:3000/message';
+const backendAPIs = 'http://localhost:3000/message';
 
 async function sendMessage(event){
     event.preventDefault();

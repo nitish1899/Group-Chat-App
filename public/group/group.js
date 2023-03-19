@@ -2,7 +2,7 @@ const token = localStorage.getItem('token');
 const groups = document.getElementById('groups');
 const otherGroups = document.getElementById('otherGroups');
 
-const backendAPIs = 'http://13.127.223.190:3000/group';
+const backendAPIs = 'http://localhost:3000/group';
 
 //getting all groups on screen
 window.addEventListener('DOMContentLoaded', async() => {

@@ -1,4 +1,4 @@
-const backendAPIs = 'http://13.127.223.190:3000/password';
+const backendAPIs = 'http://localhost:3000/password';
 
 async function resetPassword(event) {
     try{

@@ -1,4 +1,4 @@
-const backendAPIs = 'http://13.127.223.190:3000/user';
+const backendAPIs = 'http://localhost:3000/user';
 
 async function login(event) {
     try{

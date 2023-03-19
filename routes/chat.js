@@ -1,11 +1,8 @@
 const express = require('express');
 const chatController = require('../controllers/chat');
-
-const router = express.Router();
 const authentication = require('../middleware/auth');
 
-// router.use('/sendMessage', authentication.authenticate, chatController.postMessage);
-// router.use('/getLastMessage', authentication.authenticate, chatController.getMessage);
+const router = express.Router();
 
 router.post('/sendMessage/:groupId', authentication.authenticate,  chatController.sendMessage);
 
@@ -21,8 +18,8 @@ router.post('/deleteUser/:groupId' , authentication.authenticate,  chatControlle
 
 router.post('/removeAdmin/:groupId' , authentication.authenticate,  chatController.removeAdmin);
 
-const multer = require('multer');
-const upload = multer();
+const multer = require('multer');//multer is a node.js middleware for handling multipart/form-data(files in submitted form), which is primarily used for uploading files
+const upload = multer(); // body-parser does not support multipart data . So we use multer to parse the form
 
 router.post('/sendFile/:groupId' , authentication.authenticate, upload.single('file'), chatController.sendFile);
 
